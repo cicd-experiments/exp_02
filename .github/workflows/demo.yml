@@ -11,17 +11,27 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Run command on remote server
-        uses: D3rHase/ssh-command-action@v0.2.2
-        with:
-          host: ${{secrets.SSH_HOST}}
-          user: ${{secrets.SSH_USER}}
-          private_key: ${{secrets.SSH_PRIVATE_KEY}}
-          command: |
-            echo '--- START WORK ON REMOTE SERVER ---';
-            cd ${{ secrets.PROJECT_FOLDER }};
-            echo '--- LIST OF FILES ---';
-            ls -al;
+    - name: multiple command
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+#        port: ${{ secrets.PORT }}
+        script: |
+          whoami
+          ls -al
+#      - name: Run command on remote server
+#        uses: D3rHase/ssh-command-action@v0.2.2
+#        with:
+#          host: ${{secrets.SSH_HOST}}
+#          user: ${{secrets.SSH_USER}}
+#          private_key: ${{secrets.SSH_PRIVATE_KEY}}
+#          command: |
+#            echo '--- START WORK ON REMOTE SERVER ---';
+#            cd ${{ secrets.PROJECT_FOLDER }};
+#            echo '--- LIST OF FILES ---';
+#            ls -al;
 #            echo '--- GIT INFORMATION ---'
 #            git co dev;
 #            git pull;
